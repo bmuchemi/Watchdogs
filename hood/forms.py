@@ -10,7 +10,7 @@ class UploadNewNeighbourhood(forms.ModelForm):
     class Meta:
         model=Neighbourhood
         exclude=['occupant_count','admin']
-        fields=['hood','location','pic','description','hospital_number','police_number']
+        fields=['hood','location','pic','description','hospital_num','police_num']
 
 class UploadNewBuisness(forms.ModelForm):
     class Meta:
@@ -20,7 +20,7 @@ class UploadNewBuisness(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ('user', )
+        exclude = ('user',)
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
