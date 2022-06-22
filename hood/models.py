@@ -7,13 +7,13 @@ from cloudinary.models import CloudinaryField
 class Neighbourhood(models.Model):
     hood = models.CharField(max_length = 100)
     location = models.CharField(max_length = 100)
-    pic = models.ImageField(upload_to='images/')
+    pic = models.ImageField(upload_to='images/', blank=True, null=True)
     description = models.TextField()
-    hospital_number = models.IntegerField(null=True, blank=True)
-    police_number = models.IntegerField(null=True, blank=True)
+    hospital_num = models.IntegerField(null=True, blank=True)
+    police_num = models.IntegerField(null=True, blank=True)
     occupant_count = models.IntegerField(null=True, blank=True)
     admin = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-
+    
     def __str__(self):
             return ( self.hood)
     def create_neighbourhood(self):
@@ -28,7 +28,7 @@ class Neighbourhood(models.Model):
 
 class Profile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    pic = models.ImageField(upload_to='images/')
+    pic = models.ImageField(upload_to='images/', null=True, blank=True)
     bio = models.TextField( default="Please Update Bio")
     id_number = models.IntegerField(default = 0, unique = True)
     hood=models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,null=True)
@@ -46,9 +46,9 @@ class Buisness(models.Model):
    name = models.CharField(max_length = 100)
    owner = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
    hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,null=True)
-   image = models.ImageField(upload_to='images/')
+   image = models.ImageField(upload_to='images/',null=True, blank=True)
    description = models.TextField()
-   email = models.EmailField(default = "Please put in your buisness email address")
+   email = models.EmailField(default = "Please input buisness email address")
 
    def create_buisness(self):
         self.save()
@@ -63,7 +63,7 @@ class Buisness(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100, null=True)
     post = models.TextField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/',blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
@@ -76,3 +76,4 @@ class Post(models.Model):
 
     def delete_post(self):
         self.delete()
+
