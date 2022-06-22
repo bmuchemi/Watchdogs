@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/viewHood.css' %}">
+<div class="container-fluid view_bizna">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <div class="card">
+            <div id="viewbizna">
+                {% for bizna in bizna %}
+                <h5>Buisness Name: {{bizna.name}}</h5>
+                <img src="{{bizna.image.url}}" class="responsive" alt="{{bizna.description}}" id="pic">
+                <br>
+                <br>
+
+                <p class="viewdescription">{{bizna.description}}</p>
+                <p>Location: {{bizna.location}}</p>
+                <p>Email: {{bizna.email}}</p>
+               
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

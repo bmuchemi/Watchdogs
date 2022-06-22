@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bizna.css' %}">
+<div class="container-fluid searchpage">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row" style="font-size: 18px;">
+                {% if bizna %}
+                <p class="searchedmessage">Found {{bizna|length}} buisness with the term {{message}}</p>
+                {% else %}
+                <p class="searchedmessage">Found 0 buisnesses with the term {{message}}</p>
+                {% endif %}  
+            </div>
+            <div class="row">
+                {% for bizna in bizna %}
+                <div class="gallery">
+                    <div class="card">
+                    <img src="{{bizna.image.url}}" alt="Buisness" width="600" height="400">
+                    <div class="desc"><p>Buisness name: {{bizna.name}}</p></div>
+                  <div class="desc"><p>Location: {{bizna.hood}}</p></div>
+                  <a href="{% url 'bizna' bizna.id %}" class="btn btn-outline-primary btn-sm">More</a>                
+                
+              
+                  </div>
+                {% endfor %}
+                </div>
+                
+{%endblock%}

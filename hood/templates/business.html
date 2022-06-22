@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/bizna.css' %}">
+<div class="container-fluid viewbizna">
+    
+       
+            
+            <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: rgb(116, 113, 113);" >
+                <a class="nav-link active" aria-current="page" href="{% url 'viewHood'%}" id="txt" style="color: white;">Home</a>
+
+            <form class="navbar-form" role="search" action="{% url 'search_results' %}"style="margin-left:30px ;" >
+  
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search buissness with name" name="bizna">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                  </div>
+                </div>
+      
+              </form>
+              </nav>
+                {% for bizna in bizna %}
+                <div class="gallery">
+                    <div class="card">
+                    <img src="{{bizna.image.url}}" alt="Buisness" width="600" height="400">
+                    <div class="desc"><p>Buisness name: {{bizna.name}}</p></div>
+                  <div class="desc"><p>Location: {{bizna.hood}}</p></div>
+                  <a href="{% url 'bizna' bizna.id %}" class="btn btn-outline-primary btn-sm">More</a>                
+                
+                  </div>
+                  </div>
+                {% endfor %}
+            
+            
+        </div>
+     
+            
+     
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bizna.css' %}">
+<div class="container-fluid searchpage">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row" style="font-size: 18px;">
+                {% if hood %}
+                <p class="searchedmessage">Found {{hood|length}} hood with the term {{message}}</p>
+                {% else %}
+                <p class="searchedmessage">Found 0 hoods with the term {{message}}</p>
+                {% endif %}  
+            </div>
+            <div class="row">
+                {% for hood in hood %}
+                <div class="responsive">
+                <div class="gallery">
+                    <div class="card">
+                    <img src="{{hood.pic.url}}" alt="hood" width="600" height="400">
+                    <div class="desc"><p>name:{{hood.hood}}</p></div>
+                    <div class="desc"><p>location:{{hood.location}}</p></div>
+                    <a href="{% url 'hood' hood.id %}" class="btn btn-outline-secondary btn-sm">More</a>                
+
+                    </div>
+                </div>
+                {%endfor%}
+                </div>
+                
+{%endblock%}

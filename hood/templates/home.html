@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+{% load bootstrap5 %}
+{%load static%}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="container">
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+       <img src="https://media.istockphoto.com/photos/aerial-view-of-suburban-landscape-picture-id1346066816?b=1&k=20&m=1346066816&s=170667a&w=0&h=8Fv_fr4K-oZuHoaVw6gp0RDYB59ilb--LvYnmaxO9fk=" alt="">
+       </div>
+    </div>
+
+    <div class="col-md-8">
+        <h1>Welcome to Watchdogs</h1>
+        <p>This is an application where users can log in to their respective Neighbourhoods and view businesses and posts in that neighbourhood</p>
+        
+        <p>Users can also view various polica and hospital contacts.</p>
+         
+        <p style="color: rgb(207, 151, 8); font-weight: bold;">WELCOME!</p>
+
+        <a href="{% url 'register'  %}" class="btn btn-outline-success btn-sm">Register Now</a>
+    </div>
+</div>
+</div>
+{% endblock %}

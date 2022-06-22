@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid upload-hood">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 uploadform">
+            <legend style="text-align: center;">Add Your Hood</legend>
+            <form method ="POST" enctype="multipart/form-data" action="{% url 'add_hood' %}">
+                {% csrf_token %}
+
+                {% bootstrap_form form %}
+
+                <input type="submit" value="Add Hood" class="btn btn-success btn-block btn-md">
+            </form>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
+{% endblock %}

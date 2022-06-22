@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/viewHood.css' %}">
+<div class="container-fluid viewhood">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+            <div class="card">
+            <div id="viewhood">
+                {% for hood in hood %}
+                <h5>Hood Name: {{hood.hood}}</h5>
+                <img src="{{hood.pic.url}}" class="responsive" alt="{{hood.description}}" id="pic">
+                <br>
+                <br>
+
+                <p class="viewdescription">{{hood.description}}</p>
+                <p>Location: {{hood.location}}</p>
+                <p class="viewhealth"> Health hotline: {{hood.hospital_num}}</p>
+                <p class="viewpolice"> Police Hotline: {{hood.police_num}}</p>
+                <p><span>{{hood.members.count}} member:{{hood.members.count|pluralize}}</span></p>
+                {% if request.user.profile.neighbourhood == hood %}
+                <div class="leave">
+                  <a href="{% url 'leave-hood' hood.id %}" class="btn btn-outline-danger btn-sm mb-2">Leave Neighbourhood</a>
+                </div>
+                <div class="explore">
+                  <a href="{% url 'single-hood' user.profile.neighbourhood.id %}" class="btn btn-outline-success btn-sm">Explore {{user.profile.neighbourhood.name}} Estate
+                  </a>
+                </div>
+                {% elif not request.user.profile.neighbourhood %}
+                <a href="{% url 'join-hood' hood.id %}" class="btn btn-success btn-sm">Join Neighbourhood</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

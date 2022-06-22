@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/bizna.css' %}">
+<div class="container-fluid viewpost">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: rgb(116, 113, 113);" >
+        <a class="nav-link active" aria-current="page" href="{% url 'viewHood'%}" id="txt" style="color: white;">Home</a>
+        </nav>
+    <div class="row">
+     <div class="col-md-7">
+           
+                {% for post in posts %}
+                <div class="gallery">
+                    <div class="card">
+                    <h3 style="text-align: center;">{{post.title}}</h3>
+                    <img src="{{post.image.url}}" alt="Post" width="600" height="400">
+                    <div class="desc"><p>Details: {{post.post}}</p></div>
+                    <div class="desc"><p>Hood: {{post.hood}}</p></div>
+                  
+                
+                </div>
+                  </div>
+                {% endfor %}
+            
+            
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
