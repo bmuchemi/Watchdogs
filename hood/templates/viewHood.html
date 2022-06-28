@@ -12,10 +12,9 @@
             <div id="viewhood">
                 {% for hood in hood %}
                 <h5>Hood Name: {{hood.hood}}</h5>
-                <img src="{{hood.pic.url}}" class="responsive" alt="{{hood.description}}" id="pic">
+                <img src="/images/default.jpg" class="responsive" alt="{{hood.description}}" id="pic" style="width:100%; height:100%">
                 <br>
                 <br>
-
                 <p class="viewdescription">{{hood.description}}</p>
                 <p>Location: {{hood.location}}</p>
                 <p class="viewhealth"> Health hotline: {{hood.hospital_num}}</p>

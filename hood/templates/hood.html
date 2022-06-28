@@ -67,14 +67,21 @@
       </div>
     </div>
   </nav>
+
 {% for hood in hoods %}
-<div class="responsive">
-  <div class="gallery">
-      <div class="card">
-      <img src="{{hood.pic.url}}" alt="hood" width="600" height="400">
-      <div class="desc"><p>Hood:{{hood.hood}}</p></div>
+<div class="response">
+    <div class="row">
+      <div class="col-md-8">
+        <img src="{{hood.pi.url}}" alt="hood" width="600" height="400">
+        <br>
+        <br>
+      <div class="col-md-8">
+        <a href="{% url 'hood' hood.id %}" class="btn btn-primary">View hood</a>
+      </div>
+    </div>
+    <div class="desc"><p>Hood:{{hood.hood}}</p></div>
+
     <div class="desc"><p>Location:{{hood.location}}</p></div>
-    <a href="{% url 'hood' hood.id %}" class="btn btn-outline-secondary btn-sm">More</a>
     </div>
   </div>
 </div>
