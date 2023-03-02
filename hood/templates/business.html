@@ -23,19 +23,31 @@
       
               </form>
               </nav>
+              <br>
+              <br>
                 {% for bizna in bizna %}
                 <div class="gallery">
-                    <div class="card">
-                    <img src="{{bizna.image.url}}" alt="Buisness" width="600" height="400">
-                    <div class="desc"><p>Buisness name: {{bizna.name}}</p></div>
-                  <div class="desc"><p>Location: {{bizna.hood}}</p></div>
-                  <a href="{% url 'bizna' bizna.id %}" class="btn btn-outline-primary btn-sm">More</a>                
-                
-                  </div>
-                  </div>
-                {% endfor %}
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <img src="{{bizna.image.url}}" alt="Buisness" width="600" height="400">
+                      </div>
+                    <div class="col-sm-4" style="margin-left: 200px; padding-left: 30px;">
+                      <h5>Buisness Name: {{bizna.name}}</h5>
             
-            
+                      <p class="viewdescription">{{bizna.description}}</p>
+                      
+                      <p>Email: {{bizna.email}}</p>
+                     
+                        <a href="{% url 'bizna' bizna.id %}" class="btn btn-outline-success btn-sm" style="width: 100px;">More</a> 
+                        <br>
+                            <br>
+                            <hr>
+                        </div>
+                        </div>
+                        <hr>
+                      {% endfor %}
+                  
+                    </div>
         </div>
      
             

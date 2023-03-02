@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cloudinary.models import CloudinaryField
+
 
 
 # Create your models here.
 class Neighbourhood(models.Model):
     hood = models.CharField(max_length = 100)
     location = models.CharField(max_length = 100)
-    pic = models.ImageField(upload_to='images/', blank=True, null=True)
+    pi = models.ImageField(upload_to='images/')
     description = models.TextField()
     hospital_num = models.IntegerField(null=True, blank=True)
     police_num = models.IntegerField(null=True, blank=True)
@@ -26,9 +26,10 @@ class Neighbourhood(models.Model):
         hood=Neighbourhood.objects.filter(hood__icontains=search_term)
         return hood
 
+
 class Profile(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    pic = models.ImageField(upload_to='images/', null=True, blank=True)
+    pic = models.ImageField(upload_to='images/' ,default='images/default.jpg',null=True)
     bio = models.TextField( default="Please Update Bio")
     id_number = models.IntegerField(default = 0, unique = True)
     hood=models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,null=True)
@@ -46,7 +47,7 @@ class Buisness(models.Model):
    name = models.CharField(max_length = 100)
    owner = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
    hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE,null=True)
-   image = models.ImageField(upload_to='images/',null=True, blank=True)
+   image = models.ImageField(upload_to='images/')
    description = models.TextField()
    email = models.EmailField(default = "Please input buisness email address")
 
@@ -63,7 +64,7 @@ class Buisness(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100, null=True)
     post = models.TextField()
-    image = models.ImageField(upload_to='images/',blank=True,null=True)
+    image = models.ImageField(upload_to='images/')
     date = models.DateTimeField(auto_now_add=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)

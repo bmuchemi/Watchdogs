@@ -23,17 +23,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/hood.css' %}">
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="bg">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="bg" style="background:whitesmoke">
     <div class="container-fluid" style="font-family: 'Raleway', sans-serif; font-weight: bolder;">
       <a class="navbar-brand" href="{% url 'viewHood' %}" id="b">Watchdogs</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" id="btn">
         <span class="navbar-toggler-icon" id="btn"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup" id="btn">
+        <!-- allow user to view posts only if he is in a neighbourhood -->
         <div class="navbar-nav">
+          {% if hoods %}
           <a class="nav-link active" aria-current="page" href="{% url 'viewHood'%}" id="txt">Home</a>
           <a class="nav-link active" aria-current="page" href="{% url 'view_business'%}" id="txt"> Buisnesses</a>
-          <a class="nav-link active" aria-current="page" href=" {% url 'posts' %}" id="txt">Posts</a>
+          <a class="nav-link active" aria-current="page" href=" {% url 'posts' %}" id="txt">Posts</a>{% endif %}
       </div>
       
       {% if user.is_authenticated %}
@@ -41,7 +43,7 @@
   
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search hood with name" name="hood">
-          <div class="input-group-btn">
+          <div class="input-group-btn"> 
             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
           </div>
         </div>
@@ -49,15 +51,13 @@
       </form>
       <a class="nav-link active" aria-current="page" href="{% url 'add_hood'%}" id="txt" >Add Hood</a>
       <a class="nav-link active" aria-current="page" href="{% url 'add_business'%}" id="txt">Add Buisness</a>
-      <a class="nav-link active" aria-current="page" href=" {% url 'post' %}" id="txt"><p>Add post</p><span class="material-symbols-outlined">
-        upload
-    </span></a>
-
-          <a href="{% url 'profile'%}" class="nav-link" id="txt"><span class="material-symbols-outlined">
+      <a class="nav-link active" aria-current="page" href=" {% url 'post' %}" id="txt"><p>Add post</p>
+          <a href="{% url 'profile'%}" class="nav-link" id="txt" style="width: 50px;"><span class="material-symbols-outlined">
             account_circle
-        </span></i></a>
-          <a href="{% url 'logout'%}" class="nav-link" id="txt">Logout</a>
-          
+        </span></i></a> 
+        <a href="{% url 'logout'%}" class="nav-link" id="txt">Logout</a>
+        <!-- <a href="{% url 'chat'%}" class="nav-link" id="txt">Chat</a> -->
+
           
           {% else %}
           
@@ -69,21 +69,21 @@
   </nav>
 
 {% for hood in hoods %}
-<div class="response">
-    <div class="row">
-      <div class="col-md-8">
-        <img src="{{hood.pi.url}}" alt="hood" width="600" height="400">
+<div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{hood.pi.url}}" alt="hood" width="600" height="400">
+        </div>
         <br>
         <br>
-      <div class="col-md-8">
-        <a href="{% url 'hood' hood.id %}" class="btn btn-primary">View hood</a>
+        <div class="col-md-4" style="padding-left: 300px;">
+          <a href="{% url 'hood' hood.id %}" class="btn btn-primary">View hood</a>
+          <div class="desc" style="font-weight:bolder"><p>Hood:{{hood.hood}}</p></div>
+  
+          <div class="desc" style="font-weight:bolder"><p>Location:{{hood.location}}</p></div>
+        </div>
       </div>
-    </div>
-    <div class="desc"><p>Hood:{{hood.hood}}</p></div>
-
-    <div class="desc"><p>Location:{{hood.location}}</p></div>
-    </div>
-  </div>
+      <hr>
 </div>
   {%endfor%}
   {%endblock%}

@@ -1,11 +1,14 @@
+from multiprocessing import context
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Neighbourhood,Buisness,Post,Profile
-from .forms import UploadNewNeighbourhood,UploadNewBuisness,PostForm,UserRegisterForm,  ProfileUpdateForm
+from .forms import UploadNewNeighbourhood,UploadNewBuisness,PostForm, ProfileUpdateForm, UserCreationForm,NewUserForm
+from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def home(request):
     return render(request,'home.html')
@@ -31,22 +34,18 @@ def uploadNeighbourhood(request):
 
 @login_required
 def viewHood(request):
-    
+   
     hoods = Neighbourhood.objects.all()
-    context = {
-       
-        'hoods':hoods
-      }
-
+    context = {'hoods': hoods
+               }
+   
     return render(request,'hood.html', context)
-
 @login_required
 def hood(request,pk):
+    hoods = Neighbourhood.objects.filter(hood=request.user.profile.hood)
     hood=Neighbourhood.objects.filter(id=pk)
     current_user=request.user
-
-
-    return render(request, 'viewHood.html', {"hood":hood})
+    return render(request, 'viewHood.html', {"hood":hood, "hoods":hoods, "current_user":current_user})
 
 @login_required
 def uploadBuisness(request):
@@ -73,9 +72,8 @@ def uploadBuisness(request):
 @login_required
 def viewBizna(request):
     
-    bizna = Buisness.objects.all()
+    bizna = Buisness.objects.filter(hood=request.user.profile.hood)
     context = {
-       
         'bizna':bizna
       }
 
@@ -114,8 +112,9 @@ def create_post(request):
 @login_required
 def viewPost(request):
     
-    posts = Post.objects.all()
-    context = {
+    posts = Post.objects.filter(hood=request.user.profile.hood)
+    
+    context= {
        
         'posts':posts
       }
@@ -164,14 +163,13 @@ def leave_neighbourhood(request, id):
 
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account created successfully')  
             return redirect('login')
-
     else:
-        form = UserRegisterForm()
+        form = NewUserForm()
     return render(request, 'django_registration/registration.html', {"form":form})
 
 
@@ -181,13 +179,25 @@ def profile(request):
         profile_update_form = ProfileUpdateForm(request.POST or None, request.FILES, instance=request.user.profile)
         if profile_update_form.is_valid():
             profile_update_form.save()
-            return redirect('profile')
+            return redirect('profile')  
     else:
         profile_update_form = ProfileUpdateForm()
 
-    context = {
+    context = {                     
         'profile_update_form': profile_update_form,
-       
     }
     return render(request, 'profile.html', context)
+
+def leave_hood(request, id):
+    hood = get_object_or_404(Neighbourhood, id=id)
+    request.user.hood = None
+    request.user.profile.save()
+    return redirect('viewHood',{'hood':hood})
+
+def logout(request):
+    return render(request,'django_registration/logout.html')
+
+def chat_box(request, chat_box_name):
+    # we will get the chatbox name from the url
+    return render(request, "chatbox.html", {"chat_box_name": chat_box_name})
 

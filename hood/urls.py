@@ -10,7 +10,7 @@ urlpatterns = [
     path('', views.home, name = 'home'),
     path('accounts/register/', user_views.register, name ='register'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='django_registration/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('accounts/logout/',views.logout, name='logout'),
     path('profile/', user_views.profile, name = 'profile'),
     path('add_hood/',views.uploadNeighbourhood, name = 'add_hood'),
     path('viewHood/',views.viewHood, name = 'viewHood'),
@@ -24,7 +24,12 @@ urlpatterns = [
     path('searchhood/', views.searchHood, name="search_res"),
     path('join_hood/<id>', views.join_neighbourhood, name='join-hood'),
     path('leave_hood/<id>', views.leave_neighbourhood, name='leave-hood'),
+    path("chat/<str:chat_box_name>/",views.chat_box, name="chat"),
+
 ]
 
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

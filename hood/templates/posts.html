@@ -8,24 +8,35 @@
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: rgb(116, 113, 113);" >
         <a class="nav-link active" aria-current="page" href="{% url 'viewHood'%}" id="txt" style="color: white;">Home</a>
     </nav> 
-    <div class="row">
-     <div class="col-md-7">
+    <br>
+    <br>
+    <!-- view posts of a neighborhood I belong to -->
+
                 {% for post in posts %}
                 <div class="gallery">
-                    <div class="card">
-                    <h3 style="text-align: center;">{{post.title}}</h3>
-                    <img src="{{post.image.url}}" alt="Post" width="600" height="400">
-                    <div class="desc"><p>Details: {{post.post}}</p></div>
-                    <div class="desc"><p>Hood: {{post.hood}}</p></div>
-                  
-                
+                    <div class="container">
+                        <div class="row">
+                            <h3 style="text-align: center; font-weight: bolder;">{{post.title}}</h3>
+                           
+                            <hr>
+                            <br>
+                            <div class="col-sm-4">
+                                <img src="{{post.image.url}}" alt="Post" width="600" height="400">
+                            </div>
+                            
+                            <div class="col-sm-4" style="margin-left: 280px; padding-left: 30px;">
+                                <div class="desc"><p><span style="font-weight: bold;">Description:</span> {{post.post}}</p></div>
+                                <div class="desc"><p><span style="font-weight: bold;">Hood:</span> {{post.hood}}</p></div>
+                            </div>  
+                        </div>
+                        <br> 
+                        <br>
+                    </div>
+                   
                 </div>
-                  </div>
                 {% endfor %}
             
             
-        </div>
-        
     </div>
 </div>
 

@@ -4,22 +4,29 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <div class="container">
-<div class="row">
-    <div class="col-md-8">
-        <div class="card">
-       <img src="https://media.istockphoto.com/photos/aerial-view-of-suburban-landscape-picture-id1346066816?b=1&k=20&m=1346066816&s=170667a&w=0&h=8Fv_fr4K-oZuHoaVw6gp0RDYB59ilb--LvYnmaxO9fk=" alt="">
-       </div>
+<div class="row" style="padding-top: 30px;">
+    <div class="col">
+       <img src="https://images.unsplash.com/photo-1476385822777-70eabacbd41f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmVpZ2hib3VyaG9vZHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60" alt="" style="width: 600px;">
     </div>
 
-    <div class="col-md-8">
+    <div class="col">
         <h1>Welcome to Watchdogs</h1>
-        <p>This is an application where users can log in to their respective Neighbourhoods and view businesses and posts in that neighbourhood</p>
+        <p>This is an application where users can log in to their respective Neighbourhoods and view businesses,posts and all activities taking place in that neighbourhood</p>
         
-        <p>Users can also view various polica and hospital contacts.</p>
+        <p>Login to your community</p>
          
-        <p style="color: rgb(207, 151, 8); font-weight: bold;">WELCOME!</p>
-
-        <a href="{% url 'register'  %}" class="btn btn-outline-success btn-sm">Register Now</a>
+        <p style="color: crimson; font-weight: bold;">WELCOME!</p>
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{% url 'register'  %}" class="btn btn-outline-danger">Register Now</a>
+            </div>
+            
+            <div class = "col-md-4">
+                <small class="text-muted">
+                    Already Have An Account?<a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                </small>
+            </div>
+        </div>
     </div>
 </div>
 </div>
